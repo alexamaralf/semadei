@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria de Vídeos - SEMADEI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50; /* Azul escuro */
+      --secondary-color: #3498db; /* Azul vibrante */
+      --accent-color: #e74c3c; /* Vermelho */
+      --text-color: #34495e; /* Cinza escuro */
+      --light-bg-color: #f4f7f9;
+      --card-bg-color: #ffffff;
+      --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Header & Nav --- */
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    header .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    header img {
+      height: 80px;
+      width: auto;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 400;
+      color: #bdc3c7;
+    }
+
+    .social-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #fff;
+      z-index: 201;
+    }
+
+    .social-dropdown {
+      position: absolute;
+      top: 5rem;
+      right: 1.5rem;
+      background: var(--card-bg-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+    
+    .social-dropdown.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .social-dropdown a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.8rem 1.2rem;
+      transition: background-color 0.3s ease;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .social-dropdown i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-bar {
+      background: var(--primary-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ajuste para esconder o botão do menu por padrão */
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+        font-size: 1.1rem;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .menu-toggle span {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: #fff;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--secondary-color);
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            flex-direction: column;
+            width: 100%;
+            background: var(--primary-color);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0 0;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+
+        .nav-menu.responsive {
+            max-height: 500px;
+            opacity: 1;
+            padding: 1rem 0;
+        }
+        
+        .nav-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* Torna o botão visível apenas em telas menores */
+        .menu-toggle {
+            display: flex;
+        }
+        
+        .nav-link {
+            width: 100%;
+            text-align: left;
+            padding-left: 2rem;
+        }
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.2rem);
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary-color);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg-color);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Video Gallery */
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .video-item {
+      background: #fff;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      flex: 1 1 350px; /* Item flexível com base de 350px */
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .video-item iframe {
+      width: 100%;
+      height: 250px; /* Altura fixa para o vídeo */
+      border: none;
+    }
+
+    .video-item-content {
+      padding: 1.5rem;
+    }
+    
+    .video-item-content h3 {
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    /* Social Icons */
+    .social-icons {
+      text-align: center;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-icons a {
+      color: var(--primary-color);
+      font-size: 2rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    
+    footer .social-icons {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    
+    footer .social-icons a {
+        color: #fff;
+    }
+
+    footer .social-icons a:hover {
+        color: var(--secondary-color);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #bdc3c7;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Logo SEMADEI">
+        <div>
+          <h1>SEMADEI</h1>
+          <p>Secretaria de Missões de Itaquaquecetuba</p>
+        </div>
+      </div>
+      <div class="social-toggle" id="social-toggle"><i class="fas fa-share-alt"></i></div>
+      <div class="social-dropdown" id="social-dropdown">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:contato@semadei.org" title="Email"><i class="fas fa-envelope"></i> Email</a>
+      </div>
+    </div>
+  </header>
+  
+  <div class="nav-bar">
+    <nav class="container">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Início</a></li>
+        <li class="nav-item"><a href="index.html#galeria" class="nav-link">Galeria</a></li>
+        <li class="nav-item"><a href="videos.html" class="nav-link">Galeria de Vídeos</a></li>
+        <li class="nav-item"><a href="index.html#missoes" class="nav-link">Missões Transculturais</a></li>
+        <li class="nav-item"><a href="index.html#grande-comissao" class="nav-link">A Grande Comissão</a></li>
+        <li class="nav-item"><a href="nossos-missionarios.html" class="nav-link">Nossos Missionários</a></li>
+        <li class="nav-item"><a href="index.html#apoie" class="nav-link">Como Apoiar a SEMADEI?</a></li>
+        <li class="nav-item"><a href="index.html#doacoes" class="nav-link">Doações</a></li>
+        <li class="nav-item"><a href="index.html#avisos" class="nav-link">Avisos</a></li>
+        <li class="nav-item"><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    <section id="videos">
+      <div class="container">
+        <h2 class="section-title">Galeria de Vídeos</h2>
+        <p class="text-center">Assista aos vídeos que mostram nosso trabalho em ação e o impacto que temos na vida das pessoas.</p>
+
+        <div class="video-gallery">
+
+          <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Um Exemplo de Vídeo da Missão" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-item-content">
+              <h3>Nosso Trabalho na Bahia</h3>
+              <p>Veja como estamos fazendo a diferença em Salvador, levando esperança e apoio às comunidades locais.</p>
+            </div>
+          </div>
+
+          <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/C28f_d9m8a0" title="Vídeo Institucional da SEMADEI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-item-content">
+              <h3>Conheça a SEMADEI</h3>
+              <p>Um resumo da nossa história, visão e valores. Saiba mais sobre quem somos e o que fazemos.</p>
+            </div>
+          </div>
+          
+          <div class="video-item">
+            <iframe src="https://www.youtube.com/embed/n4X0g7B4G9o" title="Missão em Minas Gerais" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-item-content">
+              <h3>Ação Social em Minas Gerais</h3>
+              <p>Confira os momentos marcantes da nossa última missão em Minas Gerais, levando ajuda e evangelismo.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2025 SEMADEI - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Apenas os scripts de menu e social dropdown são necessários nesta página.
+    const socialToggle = document.getElementById('social-toggle');
+    const socialDropdown = document.getElementById('social-dropdown');
+
+    socialToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        socialDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!socialDropdown.contains(event.target) && !socialToggle.contains(event.target)) {
+            socialDropdown.classList.remove('active');
+        }
+    });
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('responsive');
+    });
+
+    navMenu.addEventListener('click', (event) => {
+        if (event.target.classList.contains('nav-link')) {
+            navMenu.classList.remove('responsive');
+        }
+    });
+
+  </script>
+
+</body>
+</html>
