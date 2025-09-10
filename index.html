@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEMADEI - Missão e Esperança</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50; /* Azul escuro */
+      --secondary-color: #3498db; /* Azul vibrante */
+      --accent-color: #e74c3c; /* Vermelho */
+      --text-color: #34495e; /* Cinza escuro */
+      --light-bg-color: #f4f7f9;
+      --card-bg-color: #ffffff;
+      --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Header & Nav --- */
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    header .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    header img {
+      /* Altere este valor para definir a altura da imagem da logo */
+      height: 80px; 
+      width: auto;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
+
+    header h1 {
+      margin: 0;
+      /* Altere o último valor ('3rem') para mudar o tamanho do texto do título */
+      font-size: clamp(1.8rem, 5vw, 3rem); 
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 400;
+      color: #bdc3c7;
+    }
+
+    .social-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #fff;
+      z-index: 201;
+    }
+
+    .social-dropdown {
+      position: absolute;
+      top: 5rem;
+      right: 1.5rem;
+      background: var(--card-bg-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+    
+    .social-dropdown.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .social-dropdown a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.8rem 1.2rem;
+      transition: background-color 0.3s ease;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .social-dropdown i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-bar {
+      background: var(--primary-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ajuste para esconder o botão do menu por padrão */
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px;
+        font-size: 1.1rem;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .menu-toggle span {
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: #fff;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--secondary-color);
+    }
+    
+    @media (max-width: 768px) {
+        .nav-menu {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            flex-direction: column;
+            width: 100%;
+            background: var(--primary-color);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0 0;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+
+        .nav-menu.responsive {
+            max-height: 500px;
+            opacity: 1;
+            padding: 1rem 0;
+        }
+        
+        .nav-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* Torna o botão visível apenas em telas menores */
+        .menu-toggle {
+            display: flex;
+        }
+        
+        .nav-link {
+            width: 100%;
+            text-align: left;
+            padding-left: 2rem;
+        }
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.2rem);
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary-color);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg-color);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Slideshow */
+    .slideshow-container {
+      position: relative;
+      margin: auto;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      max-width: 900px; /* Definindo um tamanho máximo para o slideshow */
+    }
+
+    .slides {
+      display: none;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 450px; /* Altura fixa para todas as imagens */
+      object-fit: cover; /* Garante que a imagem cubra a área sem distorção */
+      display: block;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+
+    .dot-container {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: var(--secondary-color);
+    }
+    
+    /* --- NEW CSS FOR INFOGRAPHICS --- */
+    .infographic-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 2rem;
+    }
+    
+    .infographic-item {
+      background: var(--light-bg-color);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      flex: 1 1 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .infographic-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .infographic-item i {
+      font-size: 3rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .infographic-item h4 {
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    .great-commission-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .commission-step {
+        background: var(--card-bg-color);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        width: 100%;
+        max-width: 600px;
+        position: relative;
+    }
+
+    .commission-step h4 {
+      margin: 0 0 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .commission-step i {
+        font-size: 2.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+    }
+    
+    /* Optional: a visual line to connect steps */
+    .commission-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5rem;
+      left: 50%;
+      width: 2px;
+      height: 1.5rem;
+      background: #ccc;
+    }
+
+    blockquote {
+      font-style: italic;
+      color: #666;
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    /* --- END NEW CSS --- */
+
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    form input, form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    form input:focus, form textarea:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+    }
+
+    .btn {
+      background: var(--secondary-color);
+      color: #fff;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .pix-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .pix-info {
+      text-align: center;
+    }
+
+    .pix-info strong {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .copy-btn {
+      background: #2ecc71; /* Verde */
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .copy-btn:hover {
+      background: #27ae60;
+    }
+
+    .pix-qr-code img {
+      width: 200px;
+      height: 200px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      text-align: center;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-icons a {
+      color: var(--primary-color);
+      font-size: 2rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    
+    footer .social-icons {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    
+    footer .social-icons a {
+        color: #fff;
+    }
+
+    footer .social-icons a:hover {
+        color: var(--secondary-color);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #bdc3c7;
+    }
+
+    /* BOTÃO SUBIR AO TOPO */
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, opacity 0.3s;
+      z-index: 99;
+    }
+
+    #back-to-top:hover {
+      background-color: var(--primary-color);
+      opacity: 0.9;
+    }
+
+    /* ESTILO DA NOVA NOTIFICAÇÃO (MAIS SIMPLES E ROBUSTO) */
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #27ae60;
+        color: #fff;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease-in-out;
+        white-space: nowrap;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .notification.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    @media (max-width: 480px) {
+        .notification {
+            width: 90%;
+            bottom: 15px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <img src="img/semadei.svg" alt="Logo SEMADEI">
+        <div>
+          <h1>SEMADEI</h1>
+          <p>Secretaria de Missões de Itaquaquecetuba</p>
+        </div>
+      </div>
+      <div class="social-toggle" id="social-toggle"><i class="fas fa-share-alt"></i></div>
+      <div class="social-dropdown" id="social-dropdown">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:contato@semadei.org" title="Email"><i class="fas fa-envelope"></i> Email</a>
+      </div>
+    </div>
+  </header>
+  
+  <div class="nav-bar">
+    <nav class="container">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="#home" class="nav-link">Início</a></li>
+        <li class="nav-item"><a href="#galeria" class="nav-link">Galeria</a></li>
+        <li class="nav-item"><a href="#missoes" class="nav-link">Missões Transculturais</a></li>
+        <li class="nav-item"><a href="#grande-comissao" class="nav-link">A Grande Comissão</a></li>
+        <li class="nav-item"><a href="nossos-missionarios.html" class="nav-link">Nossos Missionários</a></li>
+        <li class="nav-item"><a href="#apoie" class="nav-link">Como Apoiar a SEMADEI?</a></li>
+        <li class="nav-item"><a href="#doacoes" class="nav-link">Doações</a></li>
+        <li class="nav-item"><a href="#avisos" class="nav-link">Avisos</a></li>
+        <li class="nav-item"><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    <section id="home">
+      <div class="container">
+        <div class="card text-center">
+          <h2 class="section-title">Bem-vindo à SEMADEI</h2>
+          <p>A SEMADEI é uma organização missionária dedicada ao evangelismo e auxílio a pessoas carentes. Atuamos em diversos estados do Brasil, como Bahia, Minas Gerais e Amazonas, além de Mendonça, na Argentina. Nossa missão é levar **esperança e dignidade** onde há necessidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <div class="container">
+        <h2 class="section-title">Galeria de Trabalhos</h2>
+        <div class="slideshow-container">
+          <div class="slides fade">
+            <img src="https://ipjundiai.org.br/wp-content/uploads/2022/10/missoes-missonarios-min.jpg" alt="Missão em comunidade">
+          </div>
+          <div class="slides fade">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgOWyIseFliGYDWsVZW1_f4t-Y4PzM9TDNXMrJkyMeVXJbTRDr-UsbRhv-MSZF5r6Y0I9PafF3pKM82naBRSFO4dsEdKVGq_Qiazke7WCn5iG4ROlcAMEu840kUDfikQUi23CxGhfqT7BrW/s320/Screen+Shot+2015-08-08+at+22.05.32.png" alt="Ajuda humanitária">
+          </div>
+          <div class="slides fade">
+            <img src="https://www.estudosdecelulas.com.br/wp-content/uploads/2018/01/Fazer-miss%C3%B5es-%C3%A9-algo-imperativo-para-o-povo-de-Cristo.-O-ide-%C3%A9-uma-ordem-do-pr%C3%B3prio-Senhor-Jesus.jpg" alt="Ensino infantil em missões">
+          </div>
+        </div>
+        <div class="dot-container">
+          <span class="dot" onclick="currentSlide(1)"></span> 
+          <span class="dot" onclick="currentSlide(2)"></span> 
+          <span class="dot" onclick="currentSlide(3)"></span> 
+        </div>
+      </div>
+    </section>
+    
+    <section id="missoes">
+      <div class="container">
+        <h2 class="section-title">Missões Transculturais</h2>
+        <p class="text-center">Missões transculturais são um chamado para atravessar barreiras de idioma e costumes, levando a mensagem de Jesus a povos que ainda não a conhecem. É a manifestação do amor de Deus por todas as nações da Terra.</p>
+        <div class="infographic-container">
+            <div class="infographic-item">
+                <i class="fas fa-globe-americas"></i>
+                <h4>O Desafio</h4>
+                <p>Mais de 6.500 povos e etnias no mundo ainda não têm uma igreja ou uma Bíblia traduzida em sua língua.</p>
+            </div>
+            <div class="infographic-item">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h4>A Preparação</h4>
+                <p>Envolve aprender a cultura, os costumes e o idioma do povo local para compartilhar a mensagem de forma respeitosa e relevante.</p>
+            </div>
+            <div class="infographic-item">
+                <i class="fas fa-seedling"></i>
+                <h4>O Impacto</h4>
+                <p>Resulta no plantio de novas igrejas, na formação de líderes locais e no crescimento do corpo de Cristo em todo o planeta.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="grande-comissao">
+      <div class="container">
+        <h2 class="section-title">A Grande Comissão</h2>
+        <p class="text-center">A Grande Comissão é o mandamento de Jesus Cristo para seus seguidores, registrado em Mateus 28:19-20. É a base de toda a obra missionária, chamando a todos a participar da expansão do Reino de Deus.</p>
+        <blockquote>
+          <p>“Portanto, vão e façam discípulos de todas as nações, batizando-os em nome do Pai e do Filho e do Espírito Santo, ensinando-os a obedecer a tudo o que eu lhes ordenei.”</p>
+        </blockquote>
+        <div class="great-commission-steps">
+            <div class="commission-step">
+                <i class="fas fa-route"></i>
+                <h4>1. Ir</h4>
+                <p>A ação inicial: ir até onde as pessoas estão, em nossa comunidade ou além das fronteiras.</p>
+            </div>
+            <div class="commission-step">
+                <i class="fas fa-user-friends"></i>
+                <h4>2. Fazer Discípulos</h4>
+                <p>A meta: não apenas converter, mas formar seguidores que sigam a Cristo e, por sua vez, façam novos discípulos.</p>
+            </div>
+            <div class="commission-step">
+                <i class="fas fa-water"></i>
+                <h4>3. Batizar</h4>
+                <p>A identificação: integrar novos crentes na família de Deus através do batismo, um sinal de sua nova vida.</p>
+            </div>
+            <div class="commission-step">
+                <i class="fas fa-book"></i>
+                <h4>4. Ensinar</h4>
+                <p>O processo contínuo: guiar no caminho da obediência a Cristo, compartilhando os ensinamentos da Bíblia.</p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apoie">
+      <div class="container">
+        <div class="card text-center">
+          <h2 class="section-title">Como Apoiar a SEMADEI?</h2>
+          <p>Você pode apoiar nossos projetos através de **voluntariado, doações** ou ajudando a **divulgar nosso trabalho**. Sua contribuição faz a diferença na vida de muitas pessoas, transformando comunidades e construindo um futuro melhor.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="doacoes">
+      <div class="container">
+        <div class="card">
+          <h2 class="section-title">Área de Doações</h2>
+          <p class="text-center">Contribua com qualquer valor e nos ajude a levar esperança a quem precisa.</p>
+          <div class="pix-area">
+            <div class="pix-qr-code">
+              <img src="https://example.com/sua_url_do_qr_code_aqui.png" alt="QR Code do Pix">
+              <small>Aponte a câmera do seu celular para o QR Code</small>
+            </div>
+            <div class="pix-info">
+              <strong>Pix: <span id="pix-key">contato@semadei.org</span></strong>
+              <button class="copy-btn" onclick="copyPixKey()">
+                <i class="far fa-copy"></i> Copiar Chave
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="avisos">
+      <div class="container">
+        <div class="card">
+          <h2 class="section-title">Avisos</h2>
+          <ul>
+            <li>Próxima viagem missionária ao Amazonas: <strong style="color: var(--accent-color);">Outubro/2025</strong></li>
+            <li>Encontro de voluntários em Minas Gerais: <strong style="color: var(--accent-color);">Novembro/2025</strong></li>
+            <li>Confraternização de final de ano: <strong style="color: var(--accent-color);">Dezembro/2025</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2025 SEMADEI - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <button id="back-to-top" title="Subir ao Topo">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  
+  <div id="notification" class="notification">
+    Chave copiada! Basta colar em seu banco.
+  </div>
+
+  <script>
+    // Toggle social dropdown
+    const socialToggle = document.getElementById('social-toggle');
+    const socialDropdown = document.getElementById('social-dropdown');
+
+    socialToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        socialDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!socialDropdown.contains(event.target) && !socialToggle.contains(event.target)) {
+            socialDropdown.classList.remove('active');
+        }
+    });
+
+    // Slideshow
+    let slideIndex = 1;
+    let autoSlideInterval;
+
+    const showSlides = (n) => {
+        let i;
+        let slides = document.getElementsByClassName("slides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    };
+
+    const plusSlides = (n) => {
+        showSlides(slideIndex += n);
+        resetAutoSlide();
+    };
+
+    const currentSlide = (n) => {
+        showSlides(slideIndex = n);
+        resetAutoSlide();
+    };
+
+    const resetAutoSlide = () => {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(() => plusSlides(1), 4000);
+    };
+
+    // Iniciar slideshow
+    showSlides(slideIndex);
+    resetAutoSlide();
+
+    // SCRIPT PARA O BOTÃO COPIAR (AJUSTADO)
+    const copyPixKey = () => {
+      const pixKey = document.getElementById('pix-key').innerText;
+      const notification = document.getElementById('notification');
+      
+      navigator.clipboard.writeText(pixKey).then(() => {
+        // Remove a classe para garantir que a transição ocorra
+        notification.classList.remove('show');
+        
+        // Pequeno atraso para o navegador registrar a transição
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Esconde a notificação depois de 3 segundos
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+        
+      }).catch(err => {
+        console.error('Erro ao copiar a chave:', err);
+        alert("Não foi possível copiar a chave. Tente manualmente.");
+      });
+    };
+    
+    // SCRIPT PARA MENU RESPONSIVO
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('responsive');
+    });
+
+    // SCRIPT PARA FECHAR O MENU AO CLICAR EM UM LINK
+    navMenu.addEventListener('click', (event) => {
+        if (event.target.classList.contains('nav-link')) {
+            navMenu.classList.remove('responsive');
+        }
+    });
+
+    // SCRIPT PARA BOTÃO SUBIR AO TOPO
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+  </script>
+
+</body>
+</html>

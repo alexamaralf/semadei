@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nossos Missionários - SEMADEI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50; /* Azul escuro */
+      --secondary-color: #3498db; /* Azul vibrante */
+      --accent-color: #e74c3c; /* Vermelho */
+      --text-color: #34495e; /* Cinza escuro */
+      --light-bg-color: #f4f7f9;
+      --card-bg-color: #ffffff;
+      --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Header & Nav --- */
+    header {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    header a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    header p {
+      margin: 0;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 400;
+      color: #bdc3c7;
+    }
+
+    .nav-bar {
+      background: var(--primary-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      color: #fff;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 600;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      background: var(--secondary-color);
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 5vw, 2.2rem);
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--secondary-color);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+
+    .missionary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .missionary-card {
+      background: var(--card-bg-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 2rem;
+    }
+    
+    .missionary-card img.missionary-photo {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .missionary-card .country-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+    }
+
+    .missionary-card .country-info img.flag {
+        width: 30px;
+        height: 20px;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        object-fit: cover;
+    }
+
+    .missionary-card .country-info i.fas.fa-globe {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .missionary-card h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin: 0;
+      padding: 0 1rem;
+    }
+
+    .missionary-card p {
+      font-size: 1rem;
+      color: var(--text-color);
+      padding: 0 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      text-align: center;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-icons a {
+      color: var(--primary-color);
+      font-size: 2rem;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    
+    footer .social-icons {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    
+    footer .social-icons a {
+      color: #fff; /* Ícones brancos no rodapé */
+    }
+
+    footer .social-icons a:hover {
+      color: var(--secondary-color);
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #bdc3c7;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1><a href="index.html">SEMADEI</a></h1>
+      <p>Nossos Missionários pelo Mundo</p>
+    </div>
+  </header>
+  
+  <div class="nav-bar">
+    <nav class="container">
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Voltar para Início</a></li>
+        <li class="nav-item"><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main>
+    <section class="missionary-section">
+      <div class="container">
+        <h2 class="section-title">Conheça Nossos Missionários</h2>
+        <p class="text-center" style="margin-bottom: 2rem;">A SEMADEI atua em diferentes partes do mundo, levando a palavra e o amor de Cristo. Conheça nossos dedicados missionários e as regiões onde eles servem.</p>
+        
+        <div class="missionary-grid">
+          
+          <div class="missionary-card">
+            <img src="https://images.unsplash.com/photo-1549488344-932d0f398402?auto=format&fit=crop&w=600&q=80" alt="Missionário na Argentina" class="missionary-photo">
+            <div class="country-info">
+                <img src="https://flagcdn.com/w20/ar.png" alt="Bandeira da Argentina" class="flag">
+                <h3>Argentina</h3>
+            </div>
+            <p>Nossos missionários na Argentina trabalham com comunidades locais, oferecendo apoio espiritual e auxílio prático em regiões carentes de Mendonça.</p>
+          </div>
+          
+          <div class="missionary-card">
+            <img src="https://images.unsplash.com/photo-1579308006322-a988d447477c?auto=format&fit=crop&w=600&q=80" alt="Missionário no Amazonas, Brasil" class="missionary-photo">
+            <div class="country-info">
+                <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" class="flag">
+                <h3>Amazonas, Brasil</h3>
+            </div>
+            <p>Em meio à Floresta Amazônica, nossa equipe missionária leva saúde, educação e esperança às populações ribeirinhas, enfrentando os desafios únicos da região.</p>
+          </div>
+          
+          <div class="missionary-card">
+            <img src="https://images.unsplash.com/photo-1537233814838-34a8e23f1107?auto=format&fit=crop&w=600&q=80" alt="Missionário na Bahia, Brasil" class="missionary-photo">
+            <div class="country-info">
+                <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" class="flag">
+                <h3>Bahia, Brasil</h3>
+            </div>
+            <p>Na Bahia, nossos missionários estão engajados em projetos sociais e evangelísticos, atuando em vilas e cidades para oferecer apoio e transformação.</p>
+          </div>
+          
+          <div class="missionary-card">
+            <img src="https://images.unsplash.com/photo-1563810141933-28f0003b417e?auto=format&fit=crop&w=600&q=80" alt="Missionário em Minas Gerais, Brasil" class="missionary-photo">
+            <div class="country-info">
+                <img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil" class="flag">
+                <h3>Minas Gerais, Brasil</h3>
+            </div>
+            <p>Em Minas Gerais, a equipe da SEMADEI se dedica a alcançar comunidades rurais e urbanas, promovendo ações de assistência e evangelismo com muito carinho.</p>
+          </div>
+          
+          <div class="missionary-card">
+            <img src="https://images.unsplash.com/photo-1506466042467-f509e1e3e8f8?auto=format&fit=crop&w=600&q=80" alt="Missionário em outro país" class="missionary-photo">
+            <div class="country-info">
+                <i class="fas fa-globe"></i>
+                <h3>País Exemplo</h3>
+            </div>
+            <p>Nossos esforços se estendem a um quinto país, onde nossos missionários estão empenhados em projetos de longo prazo para fortalecer a comunidade e a fé local.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2025 SEMADEI - Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
