@@ -7,6 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
+    .footer-author {
+      display: block;
+      text-align: right;
+      font-size: 0.7rem;
+      color: #bbb;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 0.2rem;
+    }
     :root {
       --primary-color: #2c3e50; /* Azul escuro */
       --secondary-color: #3498db; /* Azul vibrante */
@@ -67,9 +75,74 @@
 
     header h1 {
       margin: 0;
-      /* Altere o último valor ('3rem') para mudar o tamanho do texto do título */
-      font-size: clamp(1.8rem, 5vw, 3rem); 
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
       font-weight: 700;
+  background: linear-gradient(90deg, #fff 0%, #c0c0c0 10%, #00c6ff 30%, #0072ff 60%, #ff512f 90%, #fff 100%);
+  /* Gradiente: branco, prata, azul claro, azul escuro, laranja avermelhado, branco */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(44,62,80,0.18), 0 4px 24px rgba(52,152,219,0.12);
+      letter-spacing: 2px;
+      position: relative;
+      animation: fadeInDown 1.2s cubic-bezier(.77,0,.18,1) 0.1s both;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .main-subtitle {
+      margin-top: 0.5rem;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(44,62,80,0.18);
+      letter-spacing: 1px;
+      animation: fadeInUp 1.2s cubic-bezier(.77,0,.18,1) 0.3s both;
+      position: relative;
+      display: inline-block;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .decorative-line {
+      display: block;
+      width: 80px;
+      height: 4px;
+      margin: 1.2rem auto 0.5rem auto;
+  background: linear-gradient(90deg, #fff 0%, #c0c0c0 10%, #ff512f 40%, #00c6ff 70%, #fff 100%);
+  /* Gradiente: branco, prata, laranja avermelhado, azul claro, branco */
+      border-radius: 2px;
+      animation: fadeInLine 1.1s cubic-bezier(.77,0,.18,1) 0.5s both;
+    }
+
+    @keyframes fadeInLine {
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+      100% {
+        width: 80px;
+        opacity: 1;
+      }
     }
 
     header p {
@@ -614,7 +687,8 @@
         <img src="img/semadei.svg" alt="Logo SEMADEI">
         <div>
           <h1>SEMADEI</h1>
-          <p>Secretaria de Missões de Itaquaquecetuba</p>
+          <span class="decorative-line"></span>
+          <div class="main-subtitle">Secretaria de Missões de Itaquaquecetuba</div>
         </div>
       </div>
       <div class="social-toggle" id="social-toggle"><i class="fas fa-share-alt"></i></div>
@@ -788,6 +862,7 @@
         <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
       </div>
       <p>&copy; 2025 SEMADEI - Todos os direitos reservados.</p>
+    <span class="footer-author">Criado por: Alex Amaral</span>
     </div>
   </footer>
 
@@ -915,4 +990,3 @@
 
 </body>
 </html>
-
